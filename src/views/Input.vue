@@ -111,10 +111,10 @@
                     for BLAST(e-10):</v-subheader
                   >
                   <v-slider
-                    hint="Im a hint"
                     max="10"
                     min="1"
                     thumb-label
+                    v-model="from.maxEvalue"
                     ticks
                     color="teal"
                   ></v-slider>
@@ -122,18 +122,18 @@
                     >Maximum target sequences for BLAST:</v-subheader
                   >
                   <v-slider
-                    hint="Im a hint"
                     max="1000"
                     min="100"
+                    v-model="from.maxTargetSequence"
                     thumb-label
                     ticks
                     color="teal"
                   ></v-slider>
                   <v-subheader class="pa-0">Identity:</v-subheader>
                   <v-slider
-                    hint="Im a hint"
                     max="100"
                     min="60"
+                    v-model="from.identity"
                     thumb-label
                     ticks
                     color="teal"
