@@ -118,7 +118,7 @@
               :search="genesCategorization.search"
             >
               <template v-slot:item.sessionId="{ item }">
-                <v-dialog v-model="item.showDialog" v-if="item.orfanLevel !='genus restricted gene'" width="1600" height="1200">
+                <v-dialog v-model="item.showDialog" v-if="item.orfanLevel !='strict orfan'" width="1600" height="1200">
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
                       v-on="on"
