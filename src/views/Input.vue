@@ -15,7 +15,6 @@
               </v-chip>
             </template>
           </v-file-input>
-
         </v-col>
         <v-col cols="2">
           <v-radio-group v-model="from.accessionType" mandatory>
@@ -32,6 +31,7 @@
           <label v-if="errors.invalidAccession" style="color: red"
             >Invalid Accession(s)- {{ errors.invalidAccessionMsg }}</label
           >
+          <label style="color: red" v-if="$v.from.ncbiAccessionInput.$dirty && !$v.from.ncbiAccessionInput.required">Accession is required.</label>
           <v-chip class="ma-n3 float-right" x-small>
             {{ from.ncbiAccessionInput.length }}/100
           </v-chip>
@@ -47,6 +47,7 @@
           <v-chip class="ma-n3 float-right" x-small>
             {{ from.sequence.length }}/5000
           </v-chip>
+          <div style="color: red" v-if="$v.from.sequence.$dirty && !$v.from.sequence.required">Sequence is required.</div>
         </v-col>
       </v-row>
       <v-row>
@@ -58,15 +59,16 @@
             item-text="name"
             item-value="name"
           >
-          <template v-slot:item="data">
-                    <v-list-item-avatar>
-                      <img :src="data.item.img">
-                    </v-list-item-avatar>
-                    <v-list-item-content>
-                      <v-list-item-title v-html="data.item.name"></v-list-item-title>
-                    </v-list-item-content>
-          </template>
+            <template v-slot:item="data">
+              <v-list-item-avatar>
+                <img :src="data.item.img" />
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title v-html="data.item.name"></v-list-item-title>
+              </v-list-item-content>
+            </template>
           </v-autocomplete>
+          <div style="color: red" v-if="$v.from.organismName.$dirty && !$v.from.organismName.required">Organis is required.</div>
         </v-col>
       </v-row>
       <v-row>
@@ -208,8 +210,7 @@
       <v-row>
         <v-spacer />
         <v-col cols="2" offset-10>
-          <v-btn @click="analysData" :disabled="$v.$invalid"
-            >Submit
+          <v-btn @click="analysData" :disabled="$v.$invalid && $v.$dirty" >Submit
             <v-icon right dark class="mdiChevronDoubleRight">
               mdi-chevronDoubleRight
             </v-icon>
@@ -244,7 +245,7 @@
 <script>
 import $ from "jquery";
 import analysis from "@/api/analysis";
-import { maxLength } from "vuelidate/lib/validators";
+import { maxLength, required, requiredIf } from "vuelidate/lib/validators";
 
 export default {
   name: "Home",
@@ -280,33 +281,36 @@ export default {
       this.from.organismName = "";
     },
     analysData() {
-      console.log(this.from);
-      var requestInfo = {
-        accessionType: this.from.accessionType,
-        identity: this.from.identity,
-        maxEvalue: this.from.maxEvalue,
-        maxTargetSequence: this.from.maxTargetSequence,
-        organismName: this.from.organismName,
-        sequence: this.from.sequence,
-      };
+      this.$v.$touch();
+      if (this.$v.$invalid== false) {
+        console.log(this.from);
+        var requestInfo = {
+          accessionType: this.from.accessionType,
+          identity: this.from.identity,
+          maxEvalue: this.from.maxEvalue,
+          maxTargetSequence: this.from.maxTargetSequence,
+          organismName: this.from.organismName,
+          sequence: this.from.sequence,
+        };
 
-      if (this.from.exampleMethod == "true") {
-        requestInfo.accession = this.from.ncbiAccessionInput;
-      } else {
-        requestInfo.sequence = this.from.sequence;
+        if (this.from.exampleMethod == "true") {
+          requestInfo.accession = this.from.ncbiAccessionInput;
+        } else {
+          requestInfo.sequence = this.from.sequence;
+        }
+        this.isLoading = true;
+        analysis
+          .analyse(requestInfo)
+          .then((response) => {
+            this.analyseResult.session = response.data;
+            this.isLoading = false;
+            this.$router.push("result?analysisId" + this.analyseResult.session);
+          })
+          .catch((error) => {
+            this.isLoading = false;
+            console.log(error);
+          });
       }
-      this.isLoading = true;
-      analysis
-        .analyse(requestInfo)
-        .then((response) => {
-          this.analyseResult.session = response.data;
-          this.isLoading = false;
-          this.$router.push("result?analysisId" + this.analyseResult.session);
-        })
-        .catch((error) => {
-          this.isLoading = false;
-          console.log(error);
-        });
     },
     validate() {
       analysis
@@ -329,34 +333,33 @@ export default {
     },
   },
   mounted() {
-    analysis.getOrganismList().then((response)=>{
-      Object.entries(response.data).forEach(element => {
+    analysis.getOrganismList().then((response) => {
+      Object.entries(response.data).forEach((element) => {
         this.organismList.push({
           name: element[0],
-          img: element[1]
-        })
+          img: element[1],
+        });
       });
-    })
+    });
   },
   data() {
     return {
       isLoading: false,
       fullPage: true,
       toggleAdvanceparameters: false,
-      organismList:[],
+      organismList: [],
       from: {
         sequenceGroup: 1,
         analysisId: new Date().toJSON().replace(/-/g, "/"),
         exampleName: "",
         accessionType: "protein",
         ncbiAccessionInput: "",
-        exampleMethod: false,
+        exampleMethod: "false",
         sequence: "",
         organismName: "",
         maxEvalue: 3,
         maxTargetSequence: 550,
-        identity: 60,
-        accession: "",
+        identity: 60
       },
       analyseResult: {
         session: "",
@@ -386,6 +389,27 @@ export default {
     from: {
       sequence: {
         maxLength: maxLength(5000),
+      },
+      organismName: {
+        required,
+      },
+      ncbiAccessionInput: {
+        required: function ncbiAccessionRequired(val) {
+          if(this.from.exampleMethod == "true" && val  == "") {
+            return false
+          }else {
+            return true
+          }
+        },
+      },
+      sequence: {
+        required: function sequenceRequired(val) {
+          if(this.from.exampleMethod == "false" && val == "") {
+            return false
+          } else {
+            return true
+          }
+        }
       },
     },
   },
