@@ -118,7 +118,7 @@
               :search="genesCategorization.search"
             >
               <template v-slot:item.sessionId="{ item }">
-                <v-dialog v-model="item.showDialog" width="800" height="600">
+                <v-dialog v-model="item.showDialog" v-if="item.orfanLevel !='genus restricted gene'" width="800" height="600">
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon
                       v-on="on"
@@ -128,16 +128,9 @@
                       >mdi-chart-bar</v-icon
                     >
                   </template>
-
                   <v-card>
-                    <!-- <v-card-title class="text-h5 grey lighten-2">
-                      Privacy Policy
-                    </v-card-title> -->
-
                     <Chart :chartData="blastResult" />
-
                     <v-divider></v-divider>
-
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
