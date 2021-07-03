@@ -33,10 +33,10 @@
               <v-pagination v-model="page" :length="pageCount"></v-pagination>
               <v-combobox
                 :value="itemsPerPage"
-                :items="[5,10,15,20, 25, 30]"
+                :items="[10, 20, 30]"
                 label="Items per page"
                 type="number"
-                @input="itemsPerPage = parseInt($event, 10)"
+                @input="itemsPerPage = parseInt($event, 5)"
               ></v-combobox>
             </div>
           </div>
