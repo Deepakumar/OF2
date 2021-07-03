@@ -1,0 +1,14 @@
+ 
+.copyright-footer{
+    padding: 0px 0px;
+    min-height: 10px;
+    max-height: 50px;
+    background-color: #33333314;
+}
+.footer-link{
+    color: #fff !important;
+    text-decoration: none;
+}
+.footer-link:hover{
+    text-decoration: underline;
+}
