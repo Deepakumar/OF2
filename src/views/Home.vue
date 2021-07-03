@@ -1,7 +1,7 @@
 <template>
-  <v-layout row wrap>
-    <v-app-bar app color="white">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+  <v-layout wrap>
+    <v-app-bar color="white" hide-on-scroll>
+      <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
       <v-spacer></v-spacer>
       <v-toolbar-title><h2>ORFanID</h2></v-toolbar-title>
       <v-spacer></v-spacer>

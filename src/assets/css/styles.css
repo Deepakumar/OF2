@@ -12,3 +12,11 @@
 .footer-link:hover{
     text-decoration: underline;
 }
+header{
+    z-index: 5;
+    line-height: 64px;
+}
+h1{
+    line-height: 110%;
+    margin: 2.8rem 0 1.68rem 0;
+}
