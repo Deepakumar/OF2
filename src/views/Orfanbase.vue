@@ -31,14 +31,13 @@
             </v-data-table>
             <div class="text-center pt-2">
               <v-pagination v-model="page" :length="pageCount"></v-pagination>
-              <v-text-field
+              <v-combobox
                 :value="itemsPerPage"
+                :items="[5,10,15,20, 25, 30]"
                 label="Items per page"
                 type="number"
-                min="-1"
-                max="15"
                 @input="itemsPerPage = parseInt($event, 10)"
-              ></v-text-field>
+              ></v-combobox>
             </div>
           </div>
         </div>
@@ -54,6 +53,7 @@ import moment from 'moment'
 export default {
   data() {
     return {
+      search:'',
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
