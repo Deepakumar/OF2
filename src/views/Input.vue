@@ -255,7 +255,6 @@ export default {
       this.from.exampleName = _exampleName;
       let url = "";
       if (this.from.exampleMethod == "true") {
-        // this.$refs.ncbiAccessionInput.$el.focus();
         if (this.from.accessionType === "protein") {
           this.from.ncbiAccessionInput =
             this.exampleProteinDataValues[this.from.exampleName];
@@ -266,14 +265,13 @@ export default {
         this.from.sequence = "";
       } else {
         url = `/data/example-${this.from.accessionType}-${this.from.exampleName}.fasta`;
+        let that = this;
         $.get(url, (data) => {
-          this.from.sequence = data;
-          // this.$refs.sequence.$el.focus();
+          that.from.sequence = this.remove_linebreaks(data);
         });
         this.from.ncbiAccessionInput = "";
       }
       this.from.organismName = this.from.exampleName;
-      // this.$refs.organism.$el.focus();
     },
     clearAccessionSequenceAndOrganism() {
       this.from.ncbiAccessionInput = "";
@@ -331,6 +329,9 @@ export default {
     onCancel() {
       console.log("a");
     },
+    remove_linebreaks(str) {
+    return str.replace( /[\r]+/gm, "" );
+    }
   },
   mounted() {
     analysis.getOrganismList().then((response) => {
