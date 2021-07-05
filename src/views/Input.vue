@@ -210,7 +210,7 @@
       <v-row>
         <v-spacer />
         <v-col cols="2" offset-10>
-          <v-btn @click="analysData" :disabled="$v.$invalid && $v.$dirty" >Submit
+          <v-btn @click="analysData" :disabled="($v.$invalid && $v.$dirty) || this.errors.invalidAccession" >Submit
             <v-icon right dark class="mdiChevronDoubleRight">
               mdi-chevronDoubleRight
             </v-icon>
@@ -401,7 +401,7 @@ export default {
           }else {
             return true
           }
-        },
+        }
       },
       sequence: {
         required: function sequenceRequired(val) {
