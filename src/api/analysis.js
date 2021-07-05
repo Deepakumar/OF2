@@ -38,7 +38,7 @@ const analysisAPI = {
   analyse(values) {
     return axios({
       method: 'post',
-      url: `${config.baseUrl()}/data/analysis`,
+      url: `${config.baseUrl()}//analyse`,
       data: values,
       headers: getHeaders(),
     });

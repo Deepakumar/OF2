@@ -31,7 +31,14 @@
           <label v-if="errors.invalidAccession" style="color: red"
             >Invalid Accession(s)- {{ errors.invalidAccessionMsg }}</label
           >
-          <label style="color: red" v-if="$v.from.ncbiAccessionInput.$dirty && !$v.from.ncbiAccessionInput.required">Accession is required.</label>
+          <label
+            style="color: red"
+            v-if="
+              $v.from.ncbiAccessionInput.$dirty &&
+              !$v.from.ncbiAccessionInput.required
+            "
+            >Accession is required.</label
+          >
           <v-chip class="ma-n3 float-right" x-small>
             {{ from.ncbiAccessionInput.length }}/100
           </v-chip>
@@ -47,7 +54,12 @@
           <v-chip class="ma-n3 float-right" x-small>
             {{ from.sequence.length }}/5000
           </v-chip>
-          <div style="color: red" v-if="$v.from.sequence.$dirty && !$v.from.sequence.required">Sequence is required.</div>
+          <div
+            style="color: red"
+            v-if="$v.from.sequence.$dirty && !$v.from.sequence.required"
+          >
+            Sequence is required.
+          </div>
         </v-col>
       </v-row>
       <v-row>
@@ -68,7 +80,12 @@
               </v-list-item-content>
             </template>
           </v-autocomplete>
-          <div style="color: red" v-if="$v.from.organismName.$dirty && !$v.from.organismName.required">Organis is required.</div>
+          <div
+            style="color: red"
+            v-if="$v.from.organismName.$dirty && !$v.from.organismName.required"
+          >
+            Organis is required.
+          </div>
         </v-col>
       </v-row>
       <v-row>
@@ -210,9 +227,13 @@
       <v-row>
         <v-spacer />
         <v-col cols="2" offset-10>
-          <v-btn @click="analysData" :disabled="($v.$invalid && $v.$dirty) || this.errors.invalidAccession" color="teal">
-            <span style="color:white;">Submit</span>
-            <v-icon right dark class="" text color="white">
+          <v-btn
+            @click="analysData"
+            :disabled="
+              ($v.$invalid && $v.$dirty) || this.errors.invalidAccession
+            "
+             style="color:white;" color="teal">Submit
+            <v-icon text color="white" right dark class="mdiChevronDoubleRight">
               mdi-send
             </v-icon>
           </v-btn>
@@ -225,7 +246,7 @@
       height="200"
       overlay-color="#506c87"
     >
-      <v-card color="#f5f7f9">
+      <!-- <v-card color="#f5f7f9">
         <v-card-title class="text-h5">
           ORFanID in Progress....
           <v-progress-linear indeterminate color="teal"></v-progress-linear>
@@ -239,6 +260,22 @@
             />
           </center>
         </v-card-text>
+      </v-card> -->
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Your Request
+        </v-card-title>
+
+        <v-card-text>
+          Your request has been sumited successfully for process
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="isLoading = false"> Close </v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-container>
@@ -281,7 +318,7 @@ export default {
     },
     analysData() {
       this.$v.$touch();
-      if (this.$v.$invalid== false) {
+      if (this.$v.$invalid == false) {
         console.log(this.from);
         var requestInfo = {
           accessionType: this.from.accessionType,
@@ -302,11 +339,11 @@ export default {
           .analyse(requestInfo)
           .then((response) => {
             this.analyseResult.session = response.data;
-            this.isLoading = false;
-            this.$router.push("result?analysisId" + this.analyseResult.session);
+            this.isLoading = true;
+            //this.$router.push("result?analysisId" + this.analyseResult.session);
           })
           .catch((error) => {
-            this.isLoading = false;
+            this.isLoading = true;
             console.log(error);
           });
       }
@@ -331,8 +368,8 @@ export default {
       console.log("a");
     },
     remove_linebreaks(str) {
-    return str.replace( /[\r]+/gm, "" );
-    }
+      return str.replace(/[\r]+/gm, "");
+    },
   },
   mounted() {
     analysis.getOrganismList().then((response) => {
@@ -361,7 +398,7 @@ export default {
         organismName: "",
         maxEvalue: 3,
         maxTargetSequence: 550,
-        identity: 60
+        identity: 60,
       },
       analyseResult: {
         session: "",
@@ -397,21 +434,21 @@ export default {
       },
       ncbiAccessionInput: {
         required: function ncbiAccessionRequired(val) {
-          if(this.from.exampleMethod == "true" && val  == "") {
-            return false
-          }else {
-            return true
+          if (this.from.exampleMethod == "true" && val == "") {
+            return false;
+          } else {
+            return true;
           }
-        }
+        },
       },
       sequence: {
         required: function sequenceRequired(val) {
-          if(this.from.exampleMethod == "false" && val == "") {
-            return false
+          if (this.from.exampleMethod == "false" && val == "") {
+            return false;
           } else {
-            return true
+            return true;
           }
-        }
+        },
       },
     },
   },
