@@ -1,7 +1,7 @@
 //const apiVersion = 1;
 const config = {
   baseUrl() {
-    return "http://45.79.13.123:8085";
+    return "http://147.135.97.42:8085";
   },
   axiosConfig() {
     return {
