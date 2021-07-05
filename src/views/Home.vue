@@ -1,9 +1,17 @@
 <template>
-  <v-layout row wrap>
-    <v-app-bar app color="white">
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+  <v-layout wrap>
+    <v-app-bar color="white" hide-on-scroll>
+      <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
       <v-spacer></v-spacer>
-      <v-toolbar-title><h2>ORFanID</h2></v-toolbar-title>
+      <v-toolbar-title w-100>
+        <v-row>
+              <v-spacer />
+              <v-col cols="9">
+                  <h2>ORFanID</h2>
+              </v-col>
+              <v-spacer />
+        </v-row>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
@@ -28,10 +36,14 @@
           <div class="row center justify mt-2">
             <v-btn class="center" to="input" color="teal">Get Started</v-btn>
           </div>
-          <v-card>
+        </v-layout>
+      </v-parallax>
+      <v-row>
+        <v-col cols="s12">
+          <div class="parallex-container-wrapper">
             <v-row>
               <v-spacer />
-              <v-col cols="11">
+              <v-col cols="9">
                 <v-card-title class="justify-center"
                   ><h2>ORFanID</h2></v-card-title
                 >
@@ -52,13 +64,11 @@
               <v-spacer />
             </v-row>
           </v-card>
-        </v-layout>
-      </v-parallax>
-      <v-parallax src="../../public/ORFanID_files/background2.jpg">
-        <v-layout column align-center justify-center row="4">
-          <div style="min-height:400px">
-
           </div>
+        </v-col>
+      </v-row>
+      <v-parallax src="../../public/ORFanID_files/background2.jpg">
+        <v-layout align-center justify-center row="4">
           <h5
             class="header col s12 center h2 text-center mt-2"
             style="color:#ffe57f;font-size:1.5em"
@@ -66,10 +76,16 @@
             Orphan genes are an unraveling mystery. We hope that ORFanID will
             help reveal the intricacies of their origin and function.
           </h5>
-          <v-card width="100%">
+        </v-layout>
+      </v-parallax>
+      <v-row>
+        <v-col cols="12">
+          <div class="parallex-container-wrapper">
+            <v-card width="100%">
             <v-row>
               <v-spacer />
               <v-col cols="3">
+                <div class="col s12 m4">
                 <div class="icon-block">
                   <h2 class="text-center brown-text" >
                     <i class="material-icons" style="color:#795548; font-size: 3em">flash_on</i>
@@ -88,6 +104,7 @@
                     significant problem to be solved.
                   </p>
                   <p>&nbsp;</p>
+                </div>
                 </div>
               </v-col>
               <v-col cols="3">
@@ -139,9 +156,9 @@
               <v-spacer />
             </v-row>
           </v-card>
-          <div style="min-height:100px"></div>
-        </v-layout>
-      </v-parallax>
+          </div>
+        </v-col>
+      </v-row>
       <v-parallax src="../../public/ORFanID_files/background3.jpg">
         <v-layout column align-center justify-center row="4">
           <h1 class="center white-text text-lighten-2 h1" style="font-size:2em">
@@ -153,7 +170,7 @@
         <v-row>
           <v-spacer />
           <v-col cols="9" class="pa-6">
-            <div class="row">
+            <div class="row footer-content-wrapper">
               <h2 class="grey-text text-lighten-4" style="color:white;">References</h2>
               <div class="copyrights">
                 <p class="grey-text text-lighten-4 text-justify" style="color:white;">
@@ -187,12 +204,12 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-row>
+            <v-row class="footer-copyright">
               <v-spacer />
-              <v-col cols="9">
-
-                <div class="container text-left float-left" style="color:white;">
-                  Copyright &nbsp;© Gunasekera 2020
+              <v-col cols="9" class="pl-0 pr-0">
+                <div class="d-flex container inner-content">
+                <div class=" text-left float-left" style="color:white;">
+                  Copyright &nbsp;© Gunasekera 2021
                 </div>
 
                 <p class="mb-0 float-right" style="color:white;">
@@ -202,7 +219,7 @@
                     >Contact Us</a
                   >
                 </p>
-
+                </div>
               </v-col>
               <v-spacer />
             </v-row>
@@ -227,7 +244,7 @@ export default {
   width: 100%;
 }
 .headerPara {
-  width: 70%;
+  width: 100%;
   margin: auto;
 }
 .copyrights {
