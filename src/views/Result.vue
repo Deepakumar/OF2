@@ -89,7 +89,7 @@
               <v-card-title class="justify-center"
                 >ORFan gene summary</v-card-title
               >
-              <Chart :chartData="chartSummary" />
+              <BarChart :chartData="chartSummary" />
             </v-col>
           </v-row>
         </v-card>
@@ -129,7 +129,7 @@
                     >
                   </template>
                   <v-card>
-                    <Chart :chartData="blastResult" />
+                    <TreeChart :chartData="blastResult" />
                     <v-divider></v-divider>
                     <v-card-actions>
                       <v-spacer></v-spacer>
@@ -276,13 +276,15 @@
 </template>
 <script>
 import analysisAPI from "../api/analysis";
-import Chart from "../components/Chart";
+import BarChart from "../components/BarChart";
+import TreeChart from "../components/TreeChart";
 import { required, email } from "vuelidate/lib/validators";
 
 export default {
   name: "Result",
   components: {
-    Chart,
+    BarChart,
+    TreeChart
   },
   data() {
     return {
@@ -456,12 +458,18 @@ export default {
         .getBlastSummary({ geneId: geneId, sessionId: sessionId })
         .then((response) => {
           console.log(response);
-          response.data.tree.children.forEach(function(datum, index) {
-            index % 2 === 0 && (datum.collapsed = true);
-          });
+          // response.data.tree.children.forEach(function(datum, index) {
+          //   index % 2 === 0 && (datum.collapsed = true);
+          // });
           response.data.tree.children.forEach((item) => {
             that.blastResult.series[0].data.push(item);
           });
+
+
+         blastResult.series[0].data.children.forEach(function (datum, index) {
+              index % 2 === 0 && (datum.collapsed = true);
+          });
+
         });
     },
     saveAnalysis() {
