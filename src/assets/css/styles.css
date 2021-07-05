@@ -40,6 +40,7 @@ h1{
     font-size: 15px;
     padding: 0 28px !important;
     margin:20px 0px;
+    color: #fff;
 }
 .footer-copyright{
     overflow: hidden;
@@ -49,7 +50,7 @@ h1{
     background-color: rgba(51, 51, 51, 0.08);
 }
 .footer-copyright .inner-content{
-    justify-content: space-between;
+    justify-content: center;
     padding: 0px;
 }
 .v-footer{
@@ -63,4 +64,7 @@ h1{
 }
 .footer-content-wrapper{
     padding: 0px 16px;
+}
+.theme--dark.v-icon {
+    color: #FFFFFF !important;
 }

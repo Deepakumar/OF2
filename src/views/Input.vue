@@ -145,7 +145,7 @@
         </v-col>
       </v-row>
       <v-row align="left" justify="space-around">
-        <v-col cols="4">
+        <v-col cols="6">
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
@@ -210,9 +210,10 @@
       <v-row>
         <v-spacer />
         <v-col cols="2" offset-10>
-          <v-btn @click="analysData" :disabled="($v.$invalid && $v.$dirty) || this.errors.invalidAccession" >Submit
-            <v-icon right dark class="mdiChevronDoubleRight">
-              mdi-chevronDoubleRight
+          <v-btn @click="analysData" :disabled="($v.$invalid && $v.$dirty) || this.errors.invalidAccession" color="teal">
+            <span style="color:white;">Submit</span>
+            <v-icon right dark class="" text color="white">
+              mdi-send
             </v-icon>
           </v-btn>
         </v-col>

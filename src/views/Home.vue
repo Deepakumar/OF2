@@ -34,7 +34,7 @@
             Identifying Orfan Genes
           </h5>
           <div class="row center justify mt-2">
-            <v-btn class="center" to="input" color="teal">Get Started</v-btn>
+            <v-btn class="center" to="input" color="teal"><span color="white">Get Started</span></v-btn>
           </div>
         </v-layout>
       </v-parallax>
@@ -206,19 +206,19 @@
           <v-col>
             <v-row class="footer-copyright">
               <v-spacer />
-              <v-col cols="9" class="pl-0 pr-0">
+              <v-col cols="12" class="pl-0 pr-0">
                 <div class="d-flex container inner-content">
                 <div class=" text-left float-left" style="color:white;">
                   Copyright &nbsp;© Gunasekera 2021
                 </div>
 
-                <p class="mb-0 float-right" style="color:white;">
+                <!-- <p class="mb-0 float-right" style="color:white;">
                   <a
                     class="grey-text text-lg-right footer-link"
                     href="mailto:sureshhewabi@gmail.com?cc=vinodh@thegunasekeras.org,richgun01@gmail.com&Subject=ORFanID%20Online%20Issues"
                     >Contact Us</a
                   >
-                </p>
+                </p> -->
                 </div>
               </v-col>
               <v-spacer />
