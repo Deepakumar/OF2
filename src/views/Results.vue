@@ -30,16 +30,20 @@
                
               </template>
             </v-data-table>
-            <div class="text-center pt-2">
-              <v-pagination v-model="page" :length="pageCount"></v-pagination>
-              <v-combobox
+            <v-row>
+              <v-col cols="1">
+                <v-combobox
                 :value="itemsPerPage"
                 :items="[5, 10, 15, 20, 25, 30]"
                 label="Items per page"
                 type="number"
                 @input="itemsPerPage = parseInt($event, 5)"
               ></v-combobox>
-            </div>
+              </v-col>
+              <v-col cols="11">
+                <v-pagination v-model="page" :length="pageCount"></v-pagination>
+              </v-col>
+            </v-row>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <v-app-bar app color="teal">
     <v-spacer></v-spacer>
-    <v-btn value="home" text color="white" to="/input">
+    <v-btn value="home" text color="white" to="/">
       <span color="white">Home</span>
       <v-icon>mdi-home</v-icon>
     </v-btn>

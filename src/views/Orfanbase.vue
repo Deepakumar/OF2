@@ -22,23 +22,33 @@
               :search="search"
               hide-default-footer
               class="elevation-1"
-              @page-count="pageCount = $event">
+              @page-count="pageCount = $event"
+            >
               <template v-slot:item.analysisIdNav="{ item }">
-                <router-link :to="{ name: 'result', params: { analysisId: item.analysisIdNav }}">
-                   <v-icon   large>mdi-chart-bar</v-icon>
-                </router-link>               
+                <router-link
+                  :to="{
+                    name: 'result',
+                    params: { analysisId: item.analysisIdNav },
+                  }"
+                >
+                  <v-icon large>mdi-chart-bar</v-icon>
+                </router-link>
               </template>
             </v-data-table>
-            <div class="text-center pt-2">
-              <v-pagination v-model="page" :length="pageCount"></v-pagination>
-              <v-combobox
-                :value="itemsPerPage"
-                :items="[5, 10, 15, 20, 25, 30]"
-                label="Items per page"
-                type="number"
-                @input="itemsPerPage = parseInt($event, 5)"
-              ></v-combobox>
-            </div>
+            <v-row>
+              <v-col cols="1">
+                <v-combobox
+                  :value="itemsPerPage"
+                  :items="[5, 10, 15, 20, 25, 30]"
+                  label="Items per page"
+                  type="number"
+                  @input="itemsPerPage = parseInt($event, 5)"
+                ></v-combobox>
+              </v-col>
+              <v-col cols="11"
+                ><v-pagination v-model="page" :length="pageCount"></v-pagination
+              ></v-col>
+            </v-row>
           </div>
         </div>
       </div>
@@ -48,12 +58,12 @@
 
 <script>
 import analysisAPI from "../api/analysis";
-import moment from 'moment'
+import moment from "moment";
 
 export default {
   data() {
     return {
-      search:'',
+      search: "",
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
@@ -78,9 +88,9 @@ export default {
           organism: element.organism,
           geneId: element.geneId,
           description: element.description,
-          orfanLevel: element.orfanLevel,          
+          orfanLevel: element.orfanLevel,
           analysisId: element.analysisId,
-          analysisIdNav: element.analysisId
+          analysisIdNav: element.analysisId,
         });
       });
     });
