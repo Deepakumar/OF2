@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form id="input_form" @submit="saveData">
+    <v-form id="input_form">
       <v-row>
         <v-col cols="4" offset-s1>
           <v-file-input
@@ -225,6 +225,32 @@
         <v-spacer />
       </v-row>
       <v-row>
+        <v-col cols="10"></v-col>
+        <v-col cols="2">
+          <v-text-field
+              v-model="from.email"
+              label="E-mail"
+              required
+            ></v-text-field>
+            <label
+            style="color: red"
+            v-if="
+              $v.from.email.$dirty &&
+              !$v.from.email.required
+            "
+            >Email address is required.</label
+          >
+          <label
+            style="color: red"
+            v-if="
+              $v.from.email.$dirty &&
+              !$v.from.email.email
+            "
+            >Invalid email address</label
+          >
+        </v-col>
+      </v-row>
+      <v-row>
         <v-spacer />
         <v-col cols="2" offset-10>
           <v-btn
@@ -262,12 +288,12 @@
         </v-card-text>
       </v-card> -->
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2">
-          Your Request
+        <v-card-title class="text-h5 teal lighten-2">
+          <span style="color:white">Your Request</span>
         </v-card-title>
 
         <v-card-text>
-          Your request has been sumited successfully for process
+          <div class="pa-5"><h4><center>Your request has been sumited successfully for process</center></h4></div>
         </v-card-text>
 
         <v-divider></v-divider>
@@ -283,7 +309,7 @@
 <script>
 import $ from "jquery";
 import analysis from "@/api/analysis";
-import { maxLength, required, requiredIf } from "vuelidate/lib/validators";
+import { maxLength, required, requiredIf, email } from "vuelidate/lib/validators";
 
 export default {
   name: "Home",
@@ -318,6 +344,7 @@ export default {
     },
     analysData() {
       this.$v.$touch();
+      debugger
       if (this.$v.$invalid == false) {
         console.log(this.from);
         var requestInfo = {
@@ -327,6 +354,7 @@ export default {
           maxTargetSequence: this.from.maxTargetSequence,
           organismName: this.from.organismName,
           sequence: this.from.sequence,
+          email: this.from.email
         };
 
         if (this.from.exampleMethod == "true") {
@@ -399,6 +427,7 @@ export default {
         maxEvalue: 3,
         maxTargetSequence: 550,
         identity: 60,
+        email:""
       },
       analyseResult: {
         session: "",
@@ -450,6 +479,10 @@ export default {
           }
         },
       },
+      email: {
+        required,
+        email
+      }
     },
   },
 };

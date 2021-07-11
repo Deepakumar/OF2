@@ -22,23 +22,45 @@
               :search="search"
               hide-default-footer
               class="elevation-1"
-              @page-count="pageCount = $event">
+              @page-count="pageCount = $event"
+            >
               <template v-slot:item.analysisIdNav="{ item }">
-                <router-link :to="{ name: 'result', params: { analysisId: item.analysisIdNav }}">
-                   <v-icon   large>mdi-chart-bar</v-icon>
-                </router-link>
-               
+                <div v-if="item.status != 'START_PROCESSING'">
+                  <router-link
+                    :to="{
+                      name: 'result',
+                      params: { analysisId: item.analysisIdNav },
+                    }"
+                  >
+                    <v-icon large>mdi-chart-bar</v-icon>
+                  </router-link>
+                </div>
+              </template>
+              <template v-slot:item.status="{ item }">
+                <v-progress-circular
+                  v-if="item.status == 'START_PROCESSING'"
+                  :width="5"
+                  color="teal"
+                  indeterminate
+                ></v-progress-circular>
+                <v-progress-circular
+                  v-else
+                  :rotate="360"
+                  :width="5"
+                  :value="100"
+                  color="teal"
+                ><span style="font-size:0.5em">100%</span></v-progress-circular>
               </template>
             </v-data-table>
             <v-row>
               <v-col cols="1">
                 <v-combobox
-                :value="itemsPerPage"
-                :items="[5, 10, 15, 20, 25, 30]"
-                label="Items per page"
-                type="number"
-                @input="itemsPerPage = parseInt($event, 5)"
-              ></v-combobox>
+                  :value="itemsPerPage"
+                  :items="[5, 10, 15, 20, 25, 30]"
+                  label="Items per page"
+                  type="number"
+                  @input="itemsPerPage = parseInt($event, 5)"
+                ></v-combobox>
               </v-col>
               <v-col cols="11">
                 <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -53,12 +75,12 @@
 
 <script>
 import analysisAPI from "../api/analysis";
-import moment from 'moment'
+import moment from "moment";
 
 export default {
   data() {
     return {
-      search: '',
+      search: "",
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
@@ -68,6 +90,7 @@ export default {
         { text: "Email", value: "email", sortable: true },
         { text: "Organism", value: "organism", sortable: true },
         { text: "Genes", value: "genes", sortable: true },
+        { text: "Status", value: "status", sortable: true },
         { text: "", value: "analysisIdNav", sortable: true },
       ],
       desserts: [],
@@ -84,7 +107,8 @@ export default {
           email: element.email,
           organism: element.organism,
           genes: element.numberOfGenes,
-          analysisIdNav:element.analysisId
+          analysisIdNav: element.analysisId,
+          status: element.status,
         });
       });
     });
