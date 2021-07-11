@@ -7,7 +7,7 @@
         <v-row>
               <v-spacer />
               <v-col cols="9">
-                  <h2>ORFanID</h2>
+                  <h4>ORFanID</h4>
               </v-col>
               <v-spacer />
         </v-row>
@@ -27,10 +27,10 @@
       <v-parallax src="../../public/ORFanID_files/background1.jpg">
         <v-layout column align-center justify-center row="4">
           <v-spacer />
-          <h1 class="center white-text text-lighten-2 h1" style="font-size:4em">
+          <h1 class="center white-text text-lighten-2 h1">
             ORFanID
           </h1>
-          <h5 class="center white-text text-lighten-2" style="font-size:1.5em">
+          <h5 class="center white-text text-lighten-2">
             Identifying Orfan Genes
           </h5>
           <div class="row center justify mt-2">
@@ -45,7 +45,7 @@
               <v-spacer />
               <v-col cols="9">
                 <v-card-title class="justify-center"
-                  ><h2>ORFanID</h2></v-card-title
+                  ><h4>ORFanID</h4></v-card-title
                 >
                 <v-card-text class="headerPara">
                   <p>
@@ -71,7 +71,7 @@
         <v-layout align-center justify-center row="4">
           <h5
             class="header col s12 center h2 text-center mt-2"
-            style="color:#ffe57f;font-size:1.5em"
+            style="color:#ffe57f;"
           >
             Orphan genes are an unraveling mystery. We hope that ORFanID will
             help reveal the intricacies of their origin and function.
@@ -88,9 +88,9 @@
                 <div class="col s12 m4">
                 <div class="icon-block">
                   <h2 class="text-center brown-text" >
-                    <i class="material-icons" style="color:#795548; font-size: 3em">flash_on</i>
+                    <i class="material-icons" style="color:#795548;">flash_on</i>
                   </h2>
-                  <h5 class="center text-center" style="font-size:1.5em">ORFan Genes</h5>
+                  <h5 class="center text-center" style="">ORFan Genes</h5>
                   <p>
                     Orphan genes (also known as taxonomically restricted genes)
                     are genes that do not have related ancestral genes in other
@@ -111,9 +111,9 @@
                 <div class="col s12 m4">
                   <div class="icon-block">
                     <h2 class="text-center brown-text">
-                      <i class="material-icons" style="color:#795548; font-size: 3em">verified_user</i>
+                      <i class="material-icons" style="color:#795548;">verified_user</i>
                     </h2>
-                    <h5 class="center text-center" style="font-size:1.5em">Biology</h5>
+                    <h5 class="center text-center" style="">Biology</h5>
                     <p>
                       Historically, gene function is known to be expressed
                       through proteins. There are specific organisms that have
@@ -134,9 +134,9 @@
                 <div class="col s12 m4">
                   <div class="icon-block">
                     <h2 class="text-center brown-text">
-                      <i class="material-icons" style="color:#795548; font-size: 3em">settings</i>
+                      <i class="material-icons" style="color:#795548;">settings</i>
                     </h2>
-                    <h5 class="center text-center" style="font-size:1.5em">Discovery</h5>
+                    <h5 class="center text-center" style="">Discovery</h5>
                     <p>
                       By identifying these unique DNA sequences, ORFanID can
                       help discover the origin, function and other significance
@@ -171,7 +171,7 @@
           <v-spacer />
           <v-col cols="9" class="pa-6">
             <div class="row footer-content-wrapper">
-              <h2 class="grey-text text-lighten-4" style="color:white;">References</h2>
+              <h5 class="grey-text text-lighten-4" style="color:white;">References</h5>
               <div class="copyrights">
                 <p class="grey-text text-lighten-4 text-justify" style="color:white;">
                   Altschul, S.F., Gish, W., Miller, W., Myers, E.W. &amp;

@@ -1,10 +1,10 @@
 <template>
   <v-footer padless app  class="pa-0">
     <v-bottom-navigation class="d-flex flex-column" background-color="teal"  height="auto">
-      <v-container pt-5 pb-0 class="pt-2">
+      <v-container class="p-2 pl-6">
         <v-row>
           <v-col cols="12">
-            <h2 class="white-text text-left" style="color:white;">ORFanID</h2>
+            <h5 class="white-text text-left" style="color:white;">ORFanID</h5>
             <p class="grey-text text-lighten-4  text-left" style="color:white;">
               ORFanID is an open-source web application that is capable of
               predicting orphan genes from a given list of gene sequences of a
