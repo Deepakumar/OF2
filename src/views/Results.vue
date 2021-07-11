@@ -5,6 +5,11 @@
         <div class="col s10 offset-s1 center-align">
           <div>
             <v-card-title>
+              <router-link
+                    :to="{
+                      name: 'input',
+                    }"
+                  >New Query</router-link>
               <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
