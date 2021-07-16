@@ -7,7 +7,7 @@
             placeholder="Upload your documents"
             label="Upload File"
             multiple
-            prepend-icon="mdi-paperclip"
+            prepend-icon="mdi-cloud-upload" class="upload-button"
           >
             <template v-slot:selection="{ text }">
               <v-chip small label color="primary">
