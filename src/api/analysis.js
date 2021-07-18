@@ -43,6 +43,13 @@ const analysisAPI = {
       headers: getHeaders(),
     });
   },
+  cancelAnalyse(analyseId) {
+    return axios({
+      method: 'get',
+      url: `${config.baseUrl()}/analysis/cancel/${analyseId}`,
+      headers: getHeaders()
+    });
+  },
   getSummaryChart(values) {
     return axios({
       method: 'post',

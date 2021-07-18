@@ -70,13 +70,22 @@
                   ></v-progress-circular
                 >
                 <v-icon
-                  v-else-if="item.status == 'ERROR'"
+                  v-else-if="item.status == 'ERRORED'"
                   aria-hidden="false"
                   color="red"
                   style="font-size: 2em"
                 >
-                  info
+                  cancel
                 </v-icon>
+                <v-icon
+                  v-else-if="item.status == 'CANCELLED'"
+                  aria-hidden="false"
+                  color="lighten"
+                  style="font-size: 2em"
+                >
+                  cancel
+                </v-icon>
+                <v-btn v-if="item.status == 'PENDING'"  class="ms-6" @click="cancelAnalyse(item.analysisId)" >Cancel</v-btn>
               </template>
             </v-data-table>
             <v-row>
@@ -103,6 +112,7 @@
 <script>
 import analysisAPI from "../api/analysis";
 import moment from "moment";
+import _ from 'lodash';
 
 export default {
   data() {
@@ -140,6 +150,19 @@ export default {
       });
     });
   },
+  methods: {
+    cancelAnalyse(analysisId) {
+        let that = this;
+        if(analysisId != null) {
+          analysisAPI.cancelAnalyse(analysisId).then((response)=> {
+            let cancelItem = _.find(that.desserts, {'analysisId': analysisId})
+             if(cancelItem != null) {
+               cancelItem.status= "CANCELLED"
+             }
+          });
+        }
+    }
+  }
 };
 </script>
 
