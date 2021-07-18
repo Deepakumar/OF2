@@ -7,7 +7,8 @@
             placeholder="Upload your documents"
             label="Upload File"
             multiple
-            prepend-icon="mdi-cloud-upload" class="upload-button"
+            prepend-icon="mdi-cloud-upload"
+            class="upload-button"
           >
             <template v-slot:selection="{ text }">
               <v-chip small label color="primary">
@@ -228,24 +229,18 @@
         <v-col cols="10"></v-col>
         <v-col cols="2">
           <v-text-field
-              v-model="from.email"
-              label="E-mail"
-              required
-            ></v-text-field>
-            <label
+            v-model="from.email"
+            label="E-mail"
+            required
+          ></v-text-field>
+          <label
             style="color: red"
-            v-if="
-              $v.from.email.$dirty &&
-              !$v.from.email.required
-            "
+            v-if="$v.from.email.$dirty && !$v.from.email.required"
             >Email address is required.</label
           >
           <label
             style="color: red"
-            v-if="
-              $v.from.email.$dirty &&
-              !$v.from.email.email
-            "
+            v-if="$v.from.email.$dirty && !$v.from.email.email"
             >Invalid email address</label
           >
         </v-col>
@@ -254,11 +249,13 @@
         <v-spacer />
         <v-col cols="2" offset-10>
           <v-btn
-            @click="analysData"
+            @click="analysConformation"
             :disabled="
               ($v.$invalid && $v.$dirty) || this.errors.invalidAccession
             "
-             style="color:white;" color="teal">Submit
+            style="color: white"
+            color="teal"
+            >Submit
             <v-icon text color="white" right dark class="mdiChevronDoubleRight">
               mdi-send
             </v-icon>
@@ -289,18 +286,27 @@
       </v-card> -->
       <v-card>
         <v-card-title class="text-h5 teal lighten-2">
-          <span style="color:white">Your Request</span>
+          <span style="color: white">Your Request</span>
         </v-card-title>
 
         <v-card-text>
-          <div class="pa-5"><h4><center>Your request has been sumited successfully for process</center></h4></div>
+          <div class="pa-3">
+            <h5 v-if="analyseSubmited == false"><center>Submit reqeust for process..</center></h5>
+            <h5 v-if="analyseSubmited == true"><center>Your reqeust has been submited sucessfully.</center></h5>
+          </div>
         </v-card-text>
 
         <v-divider></v-divider>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="isLoading = false"> Close </v-btn>
+          <v-btn color="primary" text @click="isLoading = false" :disabled="analyseSubmited">
+            Cancel
+          </v-btn>
+          <v-btn color="primary" text @click="analysData">
+            <span v-if="!analyseSubmited">Yes</span>
+            <span v-if="analyseSubmited">OK</span>
+            </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -309,7 +315,12 @@
 <script>
 import $ from "jquery";
 import analysis from "@/api/analysis";
-import { maxLength, required, requiredIf, email } from "vuelidate/lib/validators";
+import {
+  maxLength,
+  required,
+  requiredIf,
+  email,
+} from "vuelidate/lib/validators";
 
 export default {
   name: "Home",
@@ -343,8 +354,11 @@ export default {
       this.from.organismName = "";
     },
     analysData() {
+      if(this.analyseSubmited) {
+        this.reSetData();
+        this.goToResultsPage();
+      }
       this.$v.$touch();
-      debugger
       if (this.$v.$invalid == false) {
         console.log(this.from);
         var requestInfo = {
@@ -354,7 +368,7 @@ export default {
           maxTargetSequence: this.from.maxTargetSequence,
           organismName: this.from.organismName,
           sequence: this.from.sequence,
-          email: this.from.email
+          email: this.from.email,
         };
 
         if (this.from.exampleMethod == "true") {
@@ -367,14 +381,25 @@ export default {
           .analyse(requestInfo)
           .then((response) => {
             this.analyseResult.session = response.data;
-            this.isLoading = true;
-            //this.$router.push("result?analysisId" + this.analyseResult.session);
           })
           .catch((error) => {
-            this.isLoading = true;
             console.log(error);
           });
+          this.analyseSubmited = true;
       }
+    },
+    analysConformation() {
+      this.$v.$touch();
+      if (this.$v.$invalid == false) {
+        this.isLoading = true;
+      }
+    },
+    goToResultsPage() {
+      this.$router.push('results');
+    },
+    reSetData() {
+      this.isLoading = false;
+      this.analyseSubmited = false;
     },
     validate() {
       analysis
@@ -415,6 +440,7 @@ export default {
       fullPage: true,
       toggleAdvanceparameters: false,
       organismList: [],
+      analyseSubmited: false,
       from: {
         sequenceGroup: 1,
         analysisId: new Date().toJSON().replace(/-/g, "/"),
@@ -427,7 +453,7 @@ export default {
         maxEvalue: 3,
         maxTargetSequence: 550,
         identity: 60,
-        email:""
+        email: "",
       },
       analyseResult: {
         session: "",
@@ -481,8 +507,8 @@ export default {
       },
       email: {
         required,
-        email
-      }
+        email,
+      },
     },
   },
 };

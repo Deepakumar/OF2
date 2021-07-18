@@ -6,10 +6,11 @@
           <div>
             <v-card-title>
               <router-link
-                    :to="{
-                      name: 'input',
-                    }"
-                  >New Query</router-link>
+                :to="{
+                  name: 'input',
+                }"
+                >New Query</router-link
+              >
               <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
@@ -49,12 +50,33 @@
                   indeterminate
                 ></v-progress-circular>
                 <v-progress-circular
-                  v-else
+                  v-else-if="item.status == 'COMPLETED'"
                   :rotate="360"
                   :width="5"
                   :value="100"
                   color="teal"
-                ><span style="font-size:0.5em">100%</span></v-progress-circular>
+                  ><span style="font-size: 0.5em"
+                    >100%</span
+                  ></v-progress-circular
+                >
+                <v-progress-circular
+                  v-else-if="item.status == 'PENDING'"
+                  :rotate="360"
+                  :width="5"
+                  :value="0"
+                  color="teal"
+                  ><span style="font-size: 0.5em"
+                    >100%</span
+                  ></v-progress-circular
+                >
+                <v-icon
+                  v-else-if="item.status == 'ERROR'"
+                  aria-hidden="false"
+                  color="red"
+                  style="font-size: 2em"
+                >
+                  info
+                </v-icon>
               </template>
             </v-data-table>
             <v-row>
