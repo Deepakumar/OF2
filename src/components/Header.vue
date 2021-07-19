@@ -32,7 +32,7 @@ export default {
   },
   methods : {
     navInstruction() {
-      window.location ="https://docs.google.com/document/d/1YfvC9pTchIy58m9ONug2po59BwALcpCO3Ix5KfB6dUk/edit";
+      window.open("https://docs.google.com/document/d/1YfvC9pTchIy58m9ONug2po59BwALcpCO3Ix5KfB6dUk/edit",'_blank');
     }
   }
 };
