@@ -43,49 +43,89 @@
                 </div>
               </template>
               <template v-slot:item.status="{ item }">
-                <v-progress-circular
-                  v-if="item.status == 'START_PROCESSING'"
-                  :width="5"
-                  color="teal"
-                  indeterminate
-                ></v-progress-circular>
-                <v-progress-circular
+                <v-tooltip top v-if="item.status == 'START_PROCESSING'">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-progress-circular
+                      :width="5"
+                      color="teal"
+                      indeterminate
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-progress-circular>
+                  </template>
+                  <span>Processing</span>
+                </v-tooltip>
+
+                <v-tooltip
+                  top
                   v-else-if="item.status == 'COMPLETED'"
-                  :rotate="360"
-                  :width="5"
-                  :value="100"
                   color="teal"
-                  ><span style="font-size: 0.5em"
-                    >100%</span
-                  ></v-progress-circular
                 >
-                <v-progress-circular
-                  v-else-if="item.status == 'PENDING'"
-                  :rotate="360"
-                  :width="5"
-                  :value="0"
-                  color="teal"
-                  ><span style="font-size: 0.5em"
-                    >100%</span
-                  ></v-progress-circular
-                >
-                <v-icon
-                  v-else-if="item.status == 'ERRORED'"
-                  aria-hidden="false"
-                  color="red"
-                  style="font-size: 2em"
-                >
-                  cancel
-                </v-icon>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-progress-circular
+                      :rotate="360"
+                      :width="5"
+                      :value="100"
+                      color="teal"
+                      v-bind="attrs"
+                      v-on="on"
+                      ><span style="font-size: 0.5em"
+                        >100%</span
+                      ></v-progress-circular
+                    >
+                  </template>
+                  <span>Completed</span>
+                </v-tooltip>
+
+                <v-tooltip top v-else-if="item.status == 'PENDING'">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-progress-circular
+                      :rotate="360"
+                      :width="5"
+                      :value="0"
+                      color="teal"
+                      v-bind="attrs"
+                      v-on="on"
+                      ><span style="font-size: 0.5em"
+                        >100%</span
+                      ></v-progress-circular
+                    >
+                  </template>
+                  <span>Top tooltip</span>
+                </v-tooltip>
+
+                <v-tooltip top v-else-if="item.status == 'ERRORED'">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon
+                      aria-hidden="false"
+                      color="red"
+                      style="font-size: 2em"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      info
+                    </v-icon>
+                  </template>
+                  <span>Error</span>
+                </v-tooltip>
+
+                
                 <v-icon
                   v-else-if="item.status == 'CANCELLED'"
                   aria-hidden="false"
-                  color="lighten"
                   style="font-size: 2em"
+                  v-bind="attrs"
+                  v-on="on"
                 >
                   cancel
                 </v-icon>
-                <v-btn v-if="item.status == 'PENDING'"  class="ms-6" @click="cancelAnalyse(item.analysisId)" >Cancel</v-btn>
+
+                <v-btn
+                  v-if="item.status == 'PENDING'"
+                  class="ms-6"
+                  @click="cancelAnalyse(item.analysisId)"
+                  >Cancel</v-btn
+                >
               </template>
             </v-data-table>
             <v-row>
@@ -112,7 +152,7 @@
 <script>
 import analysisAPI from "../api/analysis";
 import moment from "moment";
-import _ from 'lodash';
+import _ from "lodash";
 
 export default {
   data() {
@@ -152,17 +192,17 @@ export default {
   },
   methods: {
     cancelAnalyse(analysisId) {
-        let that = this;
-        if(analysisId != null) {
-          analysisAPI.cancelAnalyse(analysisId).then((response)=> {
-            let cancelItem = _.find(that.desserts, {'analysisId': analysisId})
-             if(cancelItem != null) {
-               cancelItem.status= "CANCELLED"
-             }
-          });
-        }
-    }
-  }
+      let that = this;
+      if (analysisId != null) {
+        analysisAPI.cancelAnalyse(analysisId).then((response) => {
+          let cancelItem = _.find(that.desserts, { analysisId: analysisId });
+          if (cancelItem != null) {
+            cancelItem.status = "CANCELLED";
+          }
+        });
+      }
+    },
+  },
 };
 </script>
 
