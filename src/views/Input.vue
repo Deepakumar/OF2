@@ -365,6 +365,7 @@ export default {
         this.$v.$touch();
         if (this.$v.$invalid == false) {
           console.log(this.from);
+
           var requestInfo = {
             accessionType: this.from.accessionType,
             identity: this.from.identity,
@@ -372,7 +373,7 @@ export default {
             maxTargetSequence: this.from.maxTargetSequence,
             organismName: this.from.organismName,
             sequence: this.from.sequence,
-            email: this.from.email,
+            email: this.from.email != "" ? this.from.email : null,
           };
 
           if (this.from.exampleMethod == "true") {
