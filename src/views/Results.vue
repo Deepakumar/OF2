@@ -150,26 +150,8 @@ export default {
     };
   },
   mounted() {
-    const that = this;
-    analysisAPI.getAll().then((response) => {
-      console.log(response);
-      response.data.forEach((element) => {
-        that.desserts.push({
-          date: moment
-            .utc(element.analysisDate)
-            .local()
-            .format("YYYY-MM-DD HH:mm:ss"),
-          //date: moment(element.analysisDate).format("YYYY-MM-DD"),
-          analysisId: element.analysisId,
-          email: element.email,
-          organism: element.organism,
-          genes: element.numberOfGenes,
-          analysisIdNav: element.analysisId,
-          status: element.status,
-        });
-
-      });
-    });
+    this.loadData();
+    setInterval(this.loadData,30000 );
   },
   methods: {
     cancelAnalyse(analysisId) {
@@ -195,6 +177,27 @@ export default {
       });
 
       return items;
+    },
+    loadData() {
+      const that = this;
+      that.desserts.splice(0,that.desserts.length)
+      analysisAPI.getAll().then((response) => {
+        console.log(response);
+        response.data.forEach((element) => {
+          that.desserts.push({
+            date: moment
+              .utc(element.analysisDate)
+              .local()
+              .format("YYYY-MM-DD HH:mm:ss"),
+            analysisId: element.analysisId,
+            email: element.email,
+            organism: element.organism,
+            genes: element.numberOfGenes,
+            analysisIdNav: element.analysisId,
+            status: element.status,
+          });
+        });
+      });
     },
   },
 };
