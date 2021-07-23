@@ -21,12 +21,13 @@
               ></v-text-field>
             </v-card-title>
             <v-data-table
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
               :headers="headers"
               :items="desserts"
               :page.sync="page"
               :items-per-page="itemsPerPage"
               :search="search"
-              hide-default-footer
               class="elevation-1"
               @page-count="pageCount = $event"
             >
@@ -128,16 +129,24 @@ export default {
           align: "start",
           sortable: true,
           value: "date",
+          sort: (a, b) => {
+            return (
+              moment(a, "YYYY-MM-DD HH:mm:ss") -
+              moment(b, "YYYY-MM-DD HH:mm:ss")
+            );
+          },
           formatter: (x) => (x ? moment(x).format(this.dateFormat) : null),
         },
-        { text: "Analysis ID", value: "analysisId", sortable: true },
-        { text: "Email", value: "email", sortable: true },
-        { text: "Organism", value: "organism", sortable: true },
-        { text: "Genes", value: "genes", sortable: true },
-        { text: "Status", value: "status", sortable: true },
-        { text: "", value: "analysisIdNav", sortable: true },
+        { text: "Analysis ID", value: "analysisId", sortable: false },
+        { text: "Email", value: "email", sortable: false },
+        { text: "Organism", value: "organism", sortable: false },
+        { text: "Genes", value: "genes", sortable: false },
+        { text: "Status", value: "status", sortable: false },
+        { text: "", value: "analysisIdNav", sortable: false },
       ],
       desserts: [],
+      sortBy: ["date"],
+      sortDesc: [true],
     };
   },
   mounted() {
@@ -149,7 +158,7 @@ export default {
           date: moment
             .utc(element.analysisDate)
             .local()
-            .format("YYYY-MM-DD HH:mm:ss a"),
+            .format("YYYY-MM-DD HH:mm:ss"),
           //date: moment(element.analysisDate).format("YYYY-MM-DD"),
           analysisId: element.analysisId,
           email: element.email,
@@ -158,6 +167,7 @@ export default {
           analysisIdNav: element.analysisId,
           status: element.status,
         });
+
       });
     });
   },
@@ -166,10 +176,25 @@ export default {
       let that = this;
       if (analysisId != null) {
         analysisAPI.cancelAnalyse(analysisId).then((response) => {
-          let cancelItem = _.findIndex(that.desserts, { analysisId: analysisId });
-          that.desserts.splice(cancelItem,1);
+          let cancelItem = _.findIndex(that.desserts, {
+            analysisId: analysisId,
+          });
+          that.desserts.splice(cancelItem, 1);
         });
       }
+    },
+    sortByDate(items, index, isDescending) {
+      items.sort((a, b) => {
+        if (index[0] === "date") {
+          if (isDescending) {
+            return moment(b.date) - moment(a.date);
+          } else {
+            return moment(a.date) - moment(b.date);
+          }
+        }
+      });
+
+      return items;
     },
   },
 };
