@@ -235,11 +235,6 @@
           ></v-text-field>
           <label
             style="color: red"
-            v-if="$v.from.email.$dirty && !$v.from.email.required"
-            >Email address is required.</label
-          >
-          <label
-            style="color: red"
             v-if="$v.from.email.$dirty && !$v.from.email.email"
             >Invalid email address</label
           >
@@ -291,8 +286,12 @@
 
         <v-card-text>
           <div class="pa-3">
-            <h5 v-if="analyseSubmited == false"><center>Submit reqeust for process..</center></h5>
-            <h5 v-if="analyseSubmited == true"><center>Your reqeust has been submited sucessfully.</center></h5>
+            <h5 v-if="analyseSubmited == false">
+              <center>Submit reqeust for process..</center>
+            </h5>
+            <h5 v-if="analyseSubmited == true">
+              <center>Your reqeust has been submited sucessfully.</center>
+            </h5>
           </div>
         </v-card-text>
 
@@ -300,13 +299,18 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="isLoading = false" :disabled="analyseSubmited">
+          <v-btn
+            color="primary"
+            text
+            @click="isLoading = false"
+            :disabled="analyseSubmited"
+          >
             Cancel
           </v-btn>
           <v-btn color="primary" text @click="analysData">
             <span v-if="!analyseSubmited">Yes</span>
             <span v-if="analyseSubmited">OK</span>
-            </v-btn>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -354,38 +358,39 @@ export default {
       this.from.organismName = "";
     },
     analysData() {
-      if(this.analyseSubmited) {
+      if (this.analyseSubmited) {
         this.reSetData();
         this.goToResultsPage();
-      }
-      this.$v.$touch();
-      if (this.$v.$invalid == false) {
-        console.log(this.from);
-        var requestInfo = {
-          accessionType: this.from.accessionType,
-          identity: this.from.identity,
-          maxEvalue: this.from.maxEvalue,
-          maxTargetSequence: this.from.maxTargetSequence,
-          organismName: this.from.organismName,
-          sequence: this.from.sequence,
-          email: this.from.email,
-        };
+      } else {
+        this.$v.$touch();
+        if (this.$v.$invalid == false) {
+          console.log(this.from);
+          var requestInfo = {
+            accessionType: this.from.accessionType,
+            identity: this.from.identity,
+            maxEvalue: this.from.maxEvalue,
+            maxTargetSequence: this.from.maxTargetSequence,
+            organismName: this.from.organismName,
+            sequence: this.from.sequence,
+            email: this.from.email,
+          };
 
-        if (this.from.exampleMethod == "true") {
-          requestInfo.accession = this.from.ncbiAccessionInput;
-        } else {
-          requestInfo.sequence = this.from.sequence;
-        }
-        this.isLoading = true;
-        analysis
-          .analyse(requestInfo)
-          .then((response) => {
-            this.analyseResult.session = response.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+          if (this.from.exampleMethod == "true") {
+            requestInfo.accession = this.from.ncbiAccessionInput;
+          } else {
+            requestInfo.sequence = this.from.sequence;
+          }
+          this.isLoading = true;
+          analysis
+            .analyse(requestInfo)
+            .then((response) => {
+              this.analyseResult.session = response.data;
+            })
+            .catch((error) => {
+              console.log(error);
+            });
           this.analyseSubmited = true;
+        }
       }
     },
     analysConformation() {
@@ -395,7 +400,7 @@ export default {
       }
     },
     goToResultsPage() {
-      this.$router.push('results');
+      this.$router.push("results");
     },
     reSetData() {
       this.isLoading = false;
@@ -506,7 +511,6 @@ export default {
         },
       },
       email: {
-        required,
         email,
       },
     },

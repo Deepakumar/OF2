@@ -45,13 +45,9 @@
               <template v-slot:item.status="{ item }">
                 <v-tooltip top v-if="item.status == 'START_PROCESSING'">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-progress-circular
-                      :width="5"
-                      color="teal"
-                      indeterminate
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-progress-circular>
+                    <v-chip class="ma-2" color="green" text-color="white">
+                      Processing
+                    </v-chip>
                   </template>
                   <span>Processing</span>
                 </v-tooltip>
@@ -62,63 +58,28 @@
                   color="teal"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-progress-circular
-                      :rotate="360"
-                      :width="5"
-                      :value="100"
-                      color="teal"
-                      v-bind="attrs"
-                      v-on="on"
-                      ><span style="font-size: 0.5em"
-                        >100%</span
-                      ></v-progress-circular
-                    >
+                    <v-chip class="ma-2" color="teal" text-color="white">
+                      Completed
+                    </v-chip>
                   </template>
                   <span>Completed</span>
                 </v-tooltip>
 
                 <v-tooltip top v-else-if="item.status == 'PENDING'">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-progress-circular
-                      :rotate="360"
-                      :width="5"
-                      :value="0"
-                      color="teal"
-                      v-bind="attrs"
-                      v-on="on"
-                      ><span style="font-size: 0.5em"
-                        >100%</span
-                      ></v-progress-circular
-                    >
+                    <v-chip class="ma-2"> Queued </v-chip>
                   </template>
-                  <span>Top tooltip</span>
+                  <span>Queued</span>
                 </v-tooltip>
 
                 <v-tooltip top v-else-if="item.status == 'ERRORED'">
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon
-                      aria-hidden="false"
-                      color="red"
-                      style="font-size: 2em"
-                      v-bind="attrs"
-                      v-on="on"
-                    >
-                      info
-                    </v-icon>
+                    <v-chip class="ma-2" color="red" text-color="white">
+                      Error
+                    </v-chip>
                   </template>
                   <span>Error</span>
                 </v-tooltip>
-
-                
-                <v-icon
-                  v-else-if="item.status == 'CANCELLED'"
-                  aria-hidden="false"
-                  style="font-size: 2em"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  cancel
-                </v-icon>
 
                 <v-btn
                   v-if="item.status == 'PENDING'"
@@ -162,7 +123,13 @@ export default {
       pageCount: 0,
       itemsPerPage: 10,
       headers: [
-        { text: "Date", align: "start", sortable: true, value: "date" },
+        {
+          text: "Date",
+          align: "start",
+          sortable: true,
+          value: "date",
+          formatter: (x) => (x ? moment(x).format(this.dateFormat) : null),
+        },
         { text: "Analysis ID", value: "analysisId", sortable: true },
         { text: "Email", value: "email", sortable: true },
         { text: "Organism", value: "organism", sortable: true },
@@ -179,7 +146,10 @@ export default {
       console.log(response);
       response.data.forEach((element) => {
         that.desserts.push({
-          date:  moment.utc(element.analysisDate ).local().format('YYYY-MM-DD HH:mm:ss a'),
+          date: moment
+            .utc(element.analysisDate)
+            .local()
+            .format("YYYY-MM-DD HH:mm:ss a"),
           //date: moment(element.analysisDate).format("YYYY-MM-DD"),
           analysisId: element.analysisId,
           email: element.email,
@@ -196,10 +166,8 @@ export default {
       let that = this;
       if (analysisId != null) {
         analysisAPI.cancelAnalyse(analysisId).then((response) => {
-          let cancelItem = _.find(that.desserts, { analysisId: analysisId });
-          if (cancelItem != null) {
-            cancelItem.status = "CANCELLED";
-          }
+          let cancelItem = _.findIndex(that.desserts, { analysisId: analysisId });
+          that.desserts.splice(cancelItem,1);
         });
       }
     },
