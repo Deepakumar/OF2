@@ -84,7 +84,7 @@ export default {
       console.log(response);
       response.data.forEach((element) => {
         that.desserts.push({
-          date: moment(element.analysisDate).format("YYYY-MM-DD"),
+          date: moment(element.analysisDate).format("YYYY-MM-DD HH:mm:ss"),
           organism: element.organism,
           geneId: element.geneId,
           description: element.description,

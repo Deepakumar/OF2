@@ -18,13 +18,13 @@
                     <tr class="border-bottom">
                       <th>Organism:</th>
                       <td>
-                        <img
+                        <!-- <img
                           :src="analysisParameters.organismImg"
                           width="40"
                           height="40"
                           style="border-radius: 50%;"
                         />
-                        <br />
+                        <br /> -->
                         <span id="parameters_organism" wfd-id="31">{{
                           analysisParameters.organism
                         }}</span>

@@ -281,16 +281,16 @@
       </v-card> -->
       <v-card>
         <v-card-title class="text-h5 teal lighten-2">
-          <span style="color: white">Your Request</span>
+          <span style="color: white">ORFanID</span>
         </v-card-title>
 
         <v-card-text>
           <div class="pa-3">
             <h5 v-if="analyseSubmited == false">
-              <center>Submit reqeust for process..</center>
+              <center>Please Confirm Sequence Submission</center>
             </h5>
             <h5 v-if="analyseSubmited == true">
-              <center>Your reqeust has been submited sucessfully.</center>
+              <center>Your request has been submitted successfully.</center>
             </h5>
           </div>
         </v-card-text>
@@ -303,12 +303,12 @@
             color="primary"
             text
             @click="isLoading = false"
-            :disabled="analyseSubmited"
+            v-if="!analyseSubmited"
           >
             Cancel
           </v-btn>
           <v-btn color="primary" text @click="analysData">
-            <span v-if="!analyseSubmited">Yes</span>
+            <span v-if="!analyseSubmited">Submit</span>
             <span v-if="analyseSubmited">OK</span>
           </v-btn>
         </v-card-actions>

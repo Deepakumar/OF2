@@ -1,9 +1,13 @@
 <template>
   <v-app-bar app color="teal">
-    <v-spacer></v-spacer>
     <v-btn value="home" text color="white" to="/">
       <span color="white">Home</span>
       <v-icon>mdi-home</v-icon>
+    </v-btn>
+    <v-spacer></v-spacer>
+    <v-btn value="results" text color="white" to="/input">
+      <span>New Query</span>
+      <!-- <v-icon>mdi-mdiFileChart</v-icon> -->
     </v-btn>
 
     <v-btn value="results" text color="white" to="/results">
