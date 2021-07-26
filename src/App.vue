@@ -8,9 +8,7 @@
     <Footer v-if="!isHome"/>
   </v-app>
 </template>
-<style>
-  @import '../public/assets/css/styles.css';
-</style>
+
 <script>
 import Header from '../src/components/Header'
 import Footer from '../src/components/Footer'
