@@ -43,6 +43,12 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (max-width: 1920px) {
+  .chart {
+  height: 350px;
+  width: 600px;
+}
+}
 .chart {
   height: 350px;
   width: 800px;

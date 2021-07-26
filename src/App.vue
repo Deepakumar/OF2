@@ -9,7 +9,7 @@
   </v-app>
 </template>
 <style>
-  @import './assets/css/styles.css';
+  @import '../public/assets/css/styles.css';
 </style>
 <script>
 import Header from '../src/components/Header'
