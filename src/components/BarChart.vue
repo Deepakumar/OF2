@@ -53,4 +53,14 @@ export default {
   height: 350px;
   width: 800px;
 }
+
+.chart[data-v-22e0623b]{
+    width: 100% !important;
+}
+.chart[data-v-22e0623b] >div{
+    width: 100% !important;
+}
+.chart[data-v-22e0623b] canvas{
+    width: 100% !important;
+}
 </style>
