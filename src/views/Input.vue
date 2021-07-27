@@ -3,19 +3,28 @@
     <v-form id="input_form">
       <v-row>
         <v-col cols="4" offset-s1>
-          <v-file-input
-            placeholder="Upload your documents"
-            label="Upload File"
-            multiple
-            prepend-icon="mdi-cloud-upload"
-            class="upload-button"
-          >
-            <template v-slot:selection="{ text }">
-              <v-chip small label color="primary">
-                {{ text }}
-              </v-chip>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-file-input
+                placeholder="Upload your documents"
+                label="Upload File"
+                multiple
+                prepend-icon="mdi-cloud-upload"
+                class="upload-button"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <template v-slot:selection="{ text }">
+
+                  <v-chip small label color="primary">
+                    {{ text }}
+                  </v-chip>
+                </template>
+              </v-file-input>
             </template>
-          </v-file-input>
+            <span>Enter query sequence(s) in the text area. It strictly follows FASTA file format.
+              Multiple sequence can be separated by new line</span>
+          </v-tooltip>
         </v-col>
         <v-col cols="2">
           <v-radio-group v-model="from.accessionType" mandatory>
@@ -24,11 +33,18 @@
           </v-radio-group>
         </v-col>
         <v-col cols="6">
-          <v-text-field
-            label="NCBI or Uniprot Accession(s) seperated by comma"
-            v-model="from.ncbiAccessionInput"
-            @blur="validate"
-          ></v-text-field>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field
+                label="NCBI or Uniprot Accession(s)"
+                v-model="from.ncbiAccessionInput"
+                @blur="validate"
+                v-bind="attrs"
+                v-on="on"
+              ></v-text-field>
+            </template>
+          <span>NCBI/Uniprot accession. Multiple accessions should be separated by comma(s)</span>
+          </v-tooltip>
           <label v-if="errors.invalidAccession" style="color: red"
             >Invalid Accession(s)- {{ errors.invalidAccessionMsg }}</label
           >
@@ -47,11 +63,19 @@
       </v-row>
       <v-row>
         <v-col cols="12">
-          <v-textarea
-            label="Gene Sequence"
-            v-model="from.sequence"
-            :rules="textAreaRules"
-          ></v-textarea>
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-textarea
+                label="Gene Sequence"
+                v-model="from.sequence"
+                :rules="textAreaRules"
+                v-bind="attrs"
+                v-on="on"
+              ></v-textarea>
+            </template>
+            <span>Enter query sequence(s) in the text area. It strictly follows FASTA file format.
+              Multiple sequence can be separated by new line</span>
+          </v-tooltip>
           <v-chip class="ma-n3 float-right" x-small>
             {{ from.sequence.length }}/5000
           </v-chip>
@@ -65,12 +89,16 @@
       </v-row>
       <v-row>
         <v-col cols="12">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
           <v-autocomplete
             v-model="from.organismName"
             :items="organismList"
             label="Organism"
             item-text="name"
             item-value="name"
+            v-bind="attrs"
+            v-on="on"
           >
             <template v-slot:item="data">
               <v-list-item-avatar>
@@ -81,11 +109,15 @@
               </v-list-item-content>
             </template>
           </v-autocomplete>
+            </template>
+            <span>Organism name and the Taxonomy ID according to the NCBI Taxonomy Database. Only most common taxa will be shown.
+              If the Organism is not available here, type them here in the format of ORGANISM NAME(TAXONOMY ID)</span>
+          </v-tooltip>
           <div
             style="color: red"
             v-if="$v.from.organismName.$dirty && !$v.from.organismName.required"
           >
-            Organis is required.
+            Organism is required.
           </div>
         </v-col>
       </v-row>
@@ -118,7 +150,11 @@
               </v-expansion-panel-header>
               <v-expansion-panel-content class="pa-0">
                 <v-card flat color="transparent" class="pa-0">
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
                   <v-subheader class="pa-0"
+                               v-bind="attrs"
+                               v-on="on"
                     >Maximum
                     <a
                       class="mx-2"
@@ -128,17 +164,32 @@
                     >
                     for BLAST(e-10):</v-subheader
                   >
-                  <v-slider
-                    max="10"
-                    min="1"
-                    thumb-label
-                    v-model="from.maxEvalue"
-                    ticks
-                    color="teal"
-                  ></v-slider>
+                    </template>
+                    <span>The Expect value (E) is a parameter that describes the number of hits one can "expect" to see
+                      by chance when searching a database of a particular size.
+                      The lower the E-value, or the closer it is to zero, the more "significant" the match is.
+                      E value shown here are e-10 values.</span>
+                  </v-tooltip>
+                    <v-slider
+                      max="10"
+                      min="1"
+                      thumb-label
+                      v-model="from.maxEvalue"
+                      ticks
+                      color="teal"
+                    ></v-slider>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
                   <v-subheader class="pa-0"
+                               v-bind="attrs"
+                               v-on="on"
                     >Maximum target sequences for BLAST:</v-subheader
                   >
+                    </template>
+                    <span>Maximum number of target sequences for BLAST is used to filter best hits from the BLAST output.
+                      Eg: 500 means it will return only top 500 records from the output.
+                      Higher the number, less relevant data might get includes while fewer the number might miss matching subjects.</span>
+                  </v-tooltip>
                   <v-slider
                     max="1000"
                     min="100"
@@ -147,7 +198,15 @@
                     ticks
                     color="teal"
                   ></v-slider>
-                  <v-subheader class="pa-0">Identity:</v-subheader>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                  <v-subheader class="pa-0"
+                               v-bind="attrs"
+                               v-on="on"
+                  >Identity:</v-subheader>
+                    </template>
+                    <span>Percentage value(%) of how much subject and query sequences are identical.</span>
+                  </v-tooltip>
                   <v-slider
                     max="100"
                     min="60"
@@ -228,11 +287,18 @@
       <v-row>
         <v-col cols="10"></v-col>
         <v-col cols="2">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="from.email"
             label="E-mail"
             required
+            v-bind="attrs"
+            v-on="on"
           ></v-text-field>
+            </template>
+            <span>Optional. Email will be useful to find your dataset quickly</span>
+          </v-tooltip>
           <label
             style="color: red"
             v-if="$v.from.email.$dirty && !$v.from.email.email"
