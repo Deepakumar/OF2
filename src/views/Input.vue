@@ -2,6 +2,28 @@
   <v-container>
     <v-form id="input_form">
       <v-row>
+        <v-col cols="4">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+          <v-text-field
+            v-model="from.email"
+            label="E-mail"
+            required
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+            </template>
+            <span>Optional. Email will be useful to find your dataset quickly</span>
+          </v-tooltip>
+          <label
+            style="color: red"
+            v-if="$v.from.email.$dirty && !$v.from.email.email"
+            >Invalid email address</label
+          >
+        </v-col>
+        <v-col cols="8"></v-col>
+      </v-row>
+      <v-row>
         <v-col cols="4" offset-s1>
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
@@ -15,7 +37,6 @@
                 v-on="on"
               >
                 <template v-slot:selection="{ text }">
-
                   <v-chip small label color="primary">
                     {{ text }}
                   </v-chip>
@@ -287,7 +308,7 @@
       <v-row>
         <v-col cols="10"></v-col>
         <v-col cols="2">
-          <v-tooltip bottom>
+          <!-- <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="from.email"
@@ -303,7 +324,7 @@
             style="color: red"
             v-if="$v.from.email.$dirty && !$v.from.email.email"
             >Invalid email address</label
-          >
+          > -->
         </v-col>
       </v-row>
       <v-row>
@@ -330,21 +351,6 @@
       height="200"
       overlay-color="#506c87"
     >
-      <!-- <v-card color="#f5f7f9">
-        <v-card-title class="text-h5">
-          ORFanID in Progress....
-          <v-progress-linear indeterminate color="teal"></v-progress-linear>
-        </v-card-title>
-        <v-card-text class="justify-center">
-          <center>
-            <v-img
-              src="../assets/images/loading4.gif"
-              width="200"
-              height="75"
-            />
-          </center>
-        </v-card-text>
-      </v-card> -->
       <v-card>
         <v-card-title class="text-h5 teal lighten-2">
           <span style="color: white">ORFanID</span>
