@@ -12,6 +12,7 @@
             v-bind="attrs"
             v-on="on"
           ></v-text-field>
+          <label>(Optional)</label>
             </template>
             <span>Optional. Email will be useful to find your dataset quickly</span>
           </v-tooltip>
@@ -145,7 +146,7 @@
       <v-row>
         <v-col cols="s6" offset-s1>
           <v-container fluid class="d-flex align-center pl-0">
-            <p class="mb-0 mr-2">Try out by:</p>
+            <p class="mb-0 mr-2">Search out by:</p>
             <label class="d-flex align-center">
               sequence
               <v-switch
@@ -249,13 +250,14 @@
               <v-icon
                 size="72"
                 color="green darken-2"
-                class="icon icon-species icon-ecoli pa-4"
-                v-on:click="loadExampleData('Escherichia coli(562)')"
+                class="icon icon-species icon-human pa-4"
+                v-on:click="loadExampleData('Homo sapiens(9606)')"
                 v-bind="attrs"
                 v-on="on"
-              ></v-icon>
+              >
+              </v-icon>
             </template>
-            <span>Escherichia coli</span>
+            <span>Homo sapiens</span>
           </v-tooltip>
 
           <v-tooltip bottom>
@@ -278,14 +280,13 @@
               <v-icon
                 size="72"
                 color="green darken-2"
-                class="icon icon-species icon-human pa-4"
-                v-on:click="loadExampleData('Homo sapiens(9606)')"
+                class="icon icon-species icon-ecoli pa-4"
+                v-on:click="loadExampleData('Escherichia coli(562)')"
                 v-bind="attrs"
                 v-on="on"
-              >
-              </v-icon>
+              ></v-icon>
             </template>
-            <span>Homo sapiens</span>
+            <span>Escherichia coli</span>
           </v-tooltip>
 
           <v-tooltip bottom>
