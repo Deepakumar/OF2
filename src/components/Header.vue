@@ -36,7 +36,9 @@ export default {
   },
   methods : {
     navInstruction() {
-      window.open("https://docs.google.com/document/d/1YfvC9pTchIy58m9ONug2po59BwALcpCO3Ix5KfB6dUk/edit",'_blank');
+      let routeData = this.$router.resolve({name: 'instructions'});
+      window.open(routeData.href, '_blank');
+      //window.open("https://docs.google.com/document/d/1YfvC9pTchIy58m9ONug2po59BwALcpCO3Ix5KfB6dUk/edit",'_blank');
     }
   }
 };

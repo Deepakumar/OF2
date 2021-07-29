@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Results from '../views/Results'
 import Result from '../views/Result'
+import Instructions from '../views/Instructions.vue'
 import Home from '../views/Home'
 import OrfanBase from '../views/Orfanbase'
 import Input from '../views/Input'
@@ -33,6 +34,11 @@ const routes = [
     path: '/result/:analysisId',
     name: 'result',
     component: Result
+  },
+  {
+    path: '/instructions',
+    name: 'instructions',
+    component: Instructions
   },
   {
     path: '/about',
