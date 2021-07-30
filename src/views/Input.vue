@@ -146,7 +146,7 @@
       <v-row>
         <v-col cols="s6" offset-s1>
           <v-container fluid class="d-flex align-center pl-0">
-            <p class="mb-0 mr-2">Search out by:</p>
+            <p class="mb-0 mr-2">Search By:</p>
             <label class="d-flex align-center">
               sequence
               <v-switch
