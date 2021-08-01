@@ -16,14 +16,13 @@
           src="../../public/assets/images/documentation/GetStarted.png"
         />
         <p>
-          An ORFan analysis can be done by providing either a DNA or protein
-          sequence and the scientific name (or ID) of the organism.
-          <img
+         An ORFan analysis can be performed by providing either a DNA or protein sequence and the scientific name of the Organism.
+        </p>
+        <img
             class="materialboxed"
             width="650"
             src="../../public/assets/images/documentation/Input_options.png"
           />
-        </p>
 
         <p>
           The input DNA or protein sequences can be added in three ways: Search
@@ -73,17 +72,17 @@
           the "Advance Parameter" link. The following parameters can be adjusted
           according to the user preference:
         </p>
-        <ul class="collapsible">
-          <ol>
+        <ol class="collapsible">
+          <li>
             Maximum eValue for BLAST(e-10)
-          </ol>
-          <ol>
+          </li>
+          <li>
             Maximum number of target sequences for BLAST results
-          </ol>
-          <ol>
+          </li>
+          <li>
             Identity
-          </ol>
-        </ul>
+          </li>
+        </ol>
 
         <P
           >An example is provided below. In each case, the slider should be
