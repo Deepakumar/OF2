@@ -36,6 +36,12 @@
           <div class="row center justify mt-2">
             <v-btn class="center" to="input" color="teal"><span color="white">Get Started</span></v-btn>
           </div>
+          <div class="row center justify mt-2">
+            <ul>
+              <li ><v-icon large color="green darken-2">mdi-video</v-icon> <a href="https://youtu.be/wQY0_BBsJRk" target="_blank"><span style="font-size:1.35em">Video Tutorial for ORFanID</span></a></li>
+              <li><v-icon large color="green darken-2">mdi-video</v-icon><a href="https://youtu.be/B9QnPtKNA9c" target="_blank"><span style="font-size:1.35em">Navigating NCBI for ORFanID Video</span></a></li>
+            </ul>
+          </div>
         </v-layout>
       </v-parallax>
       <v-row>
@@ -231,7 +237,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { mdiMessageVideo } from "@mdi/js";
 
 export default {
   name: "Home",
@@ -248,6 +254,6 @@ export default {
   margin: auto;
 }
 .copyrights {
-  font:white!important;
+  font: white !important;
 }
 </style>
