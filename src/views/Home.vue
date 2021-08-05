@@ -37,7 +37,7 @@
             <v-btn class="center" to="input" color="teal"><span color="white">Get Started</span></v-btn>
           </div>
           <div class="row center justify mt-2">
-            <ul>
+            <!-- <ul>
               <li>        <v-dialog
           transition="dialog-bottom-transition"
           max-width="640"
@@ -94,6 +94,10 @@
           </template>
         </v-dialog>
               </li>
+            </ul> -->
+            <ul>
+              <li ><v-icon large color="green darken-2">mdi-video</v-icon> <a href="https://youtu.be/wQY0_BBsJRk" target="_blank"><span style="font-size:1.35em">Video Tutorial for ORFanID</span></a></li>
+              <li><v-icon large color="green darken-2">mdi-video</v-icon><a href="https://youtu.be/B9QnPtKNA9c" target="_blank"><span style="font-size:1.35em">Navigating NCBI for ORFanID Video</span></a></li>
             </ul>
           </div>
         </v-layout>
@@ -271,14 +275,6 @@
                 <div class=" text-left float-left" style="color:white;">
                   Copyright &nbsp;© Gunasekera 2021
                 </div>
-
-                <!-- <p class="mb-0 float-right" style="color:white;">
-                  <a
-                    class="grey-text text-lg-right footer-link"
-                    href="mailto:sureshhewabi@gmail.com?cc=vinodh@thegunasekeras.org,richgun01@gmail.com&Subject=ORFanID%20Online%20Issues"
-                    >Contact Us</a
-                  >
-                </p> -->
                 </div>
               </v-col>
               <v-spacer />
@@ -300,40 +296,43 @@ export default {
       videoOneUrl: "https://youtu.be/wQY0_BBsJRk",
       videoOneResult: null,
       videoTwoResult: null,
-      videoTwoUrl: "https://youtu.be/B9QnPtKNA9c"
-    }
+      videoTwoUrl: "https://youtu.be/B9QnPtKNA9c",
+    };
   },
-  mounted: function() {
-      const youtubeEmbedTemplate = 'https://www.youtube.com/embed/'
+  mounted: function () {
+    const youtubeEmbedTemplate = "https://www.youtube.com/embed/";
 
-      let url = this.videoOneUrl.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)
-      console.log("url", url)
-      let YId = undefined !== url[2] ? url[2].split(/[^0-9a-z_/\\-]/i)[0] : url[0]
-      console.log("YId", YId)
-      if (YId === url[0]) {
-        console.log("not a youtube link")
-      } else {
-        console.log("it's  a youtube video")
-      }
-      let topOfQueue = youtubeEmbedTemplate.concat(YId)
-      console.log("topOfQueue", topOfQueue)
-      this.videoOneResult = topOfQueue
-      this.youtubeURL = ''
+    let url = this.videoOneUrl.split(
+      /(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/
+    );
+    console.log("url", url);
+    let YId =
+      undefined !== url[2] ? url[2].split(/[^0-9a-z_/\\-]/i)[0] : url[0];
+    console.log("YId", YId);
+    if (YId === url[0]) {
+      console.log("not a youtube link");
+    } else {
+      console.log("it's  a youtube video");
+    }
+    let topOfQueue = youtubeEmbedTemplate.concat(YId);
+    console.log("topOfQueue", topOfQueue);
+    this.videoOneResult = topOfQueue;
+    this.youtubeURL = "";
 
-      url = this.videoTwoUrl.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/)
-      console.log("url", url)
-      YId = undefined !== url[2] ? url[2].split(/[^0-9a-z_/\\-]/i)[0] : url[0]
-      console.log("YId", YId)
-      if (YId === url[0]) {
-        console.log("not a youtube link")
-      } else {
-        console.log("it's  a youtube video")
-      }
-      topOfQueue = youtubeEmbedTemplate.concat(YId)
-      console.log("topOfQueue", topOfQueue)
-      this.videoTwoResult = topOfQueue
-      this.youtubeURL = ''
-  }
+    url = this.videoTwoUrl.split(/(vi\/|v%3D|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    console.log("url", url);
+    YId = undefined !== url[2] ? url[2].split(/[^0-9a-z_/\\-]/i)[0] : url[0];
+    console.log("YId", YId);
+    if (YId === url[0]) {
+      console.log("not a youtube link");
+    } else {
+      console.log("it's  a youtube video");
+    }
+    topOfQueue = youtubeEmbedTemplate.concat(YId);
+    console.log("topOfQueue", topOfQueue);
+    this.videoTwoResult = topOfQueue;
+    this.youtubeURL = "";
+  },
 };
 </script>
 
